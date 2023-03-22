@@ -1,30 +1,33 @@
 <?php
 
+// src/DataFixtures/CommentFixtures.php
+
+namespace App\DataFixtures;
+
 use Faker\Factory;
 use App\Entity\Post;
 use App\Entity\Comment;
-use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class PostFixtures extends Fixture
+
+class CommentFixtures extends Fixture
 {
-    public function load(ObjectManager $manager): void
+    public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
+        $post = $manager->getRepository(Post::class)->findOneBy([]);
 
-        for ($i=0; $i < 10 ; $i++) { 
-            $post = new Post();
-            $post->setArticle($faker->paragraph);
-            for ($j=0; $j < 3; $j++) { 
+        if ($post !== null) {
+            for ($i=0; $i < 3; $i++) { 
                 $comment = new Comment();
                 $comment->setComment($faker->paragraph);
                 $comment->setPost($post);
                 $manager->persist($comment);
             }
-            $manager->persist($post);
-        }
-        // dd($post);
         $manager->flush();
+        } else {
+            echo "Pas de posts dans la base de données!";
+        }
     }
 }
