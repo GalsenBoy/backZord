@@ -3,11 +3,20 @@
 namespace App\Entity;
 
 use Carbon\Carbon;
+use ApiPlatform\Metadata\Get;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommentRepository;
+use ApiPlatform\Metadata\GetCollection;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ApiResource(
+    new GetCollection(),
+    new Get(),
+    new Delete,
+)]
 class Comment
 {
     #[ORM\Id]
