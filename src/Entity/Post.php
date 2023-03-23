@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Metadata\Post as ApiPlatformPost;
 use Carbon\Carbon;
 use ApiPlatform\Metadata\Get;
-// use ApiPlatform\Metadata\Post;
-// use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
@@ -17,10 +16,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ApiResource(
-    operations:[
-        new Get(),
+    operations: [
         new GetCollection(),
+        new Get(),
         new Delete(),
+        new Patch(),
+        new ApiPlatformPost(),
     ]
 )]
 class Post

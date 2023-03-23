@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Carbon\Carbon;
 use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Post as ApiPlatformPost;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,11 +18,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
-    new GetCollection(),
-    new Get(),
-    new Delete(),
-    new Patch(),
-    new Post(),
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Delete(),
+        new Patch(),
+        new ApiPlatformPost(),
+    ]
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
