@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\Post as ApiPlatformPost;
 use Carbon\Carbon;
 use ApiPlatform\Metadata\Get;
 use Doctrine\DBAL\Types\Types;
-use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
@@ -19,7 +18,6 @@ use ApiPlatform\Metadata\GetCollection;
         new GetCollection(),
         new Get(),
         new Delete(),
-        new Patch(),
         new ApiPlatformPost(),
     ]
 )]
