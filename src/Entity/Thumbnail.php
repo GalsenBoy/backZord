@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Vich\Uploadable;
+
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Entity\File;
 use App\Repository\ThumbnailRepository;

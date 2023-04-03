@@ -57,7 +57,6 @@ class Tag
         if (!$this->posts->contains($post)) {
             $this->posts->add($post);
         }
-
         return $this;
     }
 

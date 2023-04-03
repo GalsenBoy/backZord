@@ -149,9 +149,7 @@ class Post
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
             $comment->setPost($this);
-
         }
-
         return $this;
     }
 
