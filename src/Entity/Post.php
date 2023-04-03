@@ -50,11 +50,8 @@ class Post
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'posts')]
     private Collection $tags;
 
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]    
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
@@ -64,6 +61,7 @@ class Post
     public function __construct(){
         $this->created_at = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
 
     }
 
@@ -134,9 +132,10 @@ class Post
         if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
             $tag->addPost($this);
-
-     * @return Collection<int, Comment>
-     */
+        }
+    // 
+        return $this;
+    }
     public function getComments(): Collection
     {
         return $this->comments;
@@ -158,6 +157,9 @@ class Post
     {
         if ($this->tags->removeElement($tag)) {
             $tag->removePost($this);
+        }
+        return $this;
+    }
 
     public function removeComment(Comment $comment): self
     {
@@ -187,3 +189,4 @@ class Post
     }
 
 }
+
