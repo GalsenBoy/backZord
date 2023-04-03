@@ -64,7 +64,6 @@ class Tag
     public function removePost(Post $post): self
     {
         $this->posts->removeElement($post);
-
         return $this;
     }
 }

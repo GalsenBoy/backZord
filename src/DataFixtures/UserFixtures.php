@@ -2,34 +2,34 @@
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
 use App\Entity\Post;
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-
-        for ($i=0; $i < 11 ; $i++) { 
+        for ($i=0; $i < 15; $i++) { 
             $user = new User();
-            $user->setFirstName($faker->firstName);
-            $user->setLastName($faker->lastName);
-            $user->setEmail($faker->safeEmail);
-            $user->setUserName($faker->userName);
-            $user->setPassword($faker->password);
-            for ($j=0; $j < 3 ; $j++) { 
+            $user->setFirstName($faker->firstName)
+                ->setLastName($faker->lastName)
+                ->setEmail($faker->safeEmail)
+                ->setUserName($faker->userName)
+                ->setPassword($faker->password);
+            
+            $numberOfPosts = $faker->numberBetween($min = 1, $max = 10);
+            for ($j=0; $j < $numberOfPosts; $j++) { 
                 $post = new Post();
-                $post->setArticle($faker->paragraph);
-                $post->setUser($user); 
+                $post->setArticle($faker->paragraph)
+                    ->setUser($user);
                 $manager->persist($post);
             }
             $manager->persist($user);
         }
-        // dd($user);
         $manager->flush();
-    }
+    }    
 }
