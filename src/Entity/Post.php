@@ -58,6 +58,9 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\OneToOne(mappedBy: 'post', cascade: ['persist', 'remove'])]
+    private ?Thumbnail $thumbnail = null;
+
     public function __construct(){
         $this->created_at = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
@@ -184,6 +187,23 @@ class Post
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?Thumbnail
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(Thumbnail $thumbnail): self
+    {
+        // set the owning side of the relation if necessary
+        if ($thumbnail->getPost() !== $this) {
+            $thumbnail->setPost($this);
+        }
+
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
